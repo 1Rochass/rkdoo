@@ -5,6 +5,7 @@ class Route
 	static $ActionName;
 	static $BoundleName;
 	static $Error;
+	static $Model;
 
 	static function start()
 	{
@@ -33,6 +34,7 @@ class Route
 		
 		self::$ControllerName = self::$ControllerName . "Controller"; 
 		self::$ActionName = strtolower(self::$ActionName) . "Action";
+		self::$Model = "Model_" . self::$ControllerName;
 
 		// Проверяем наличие файла
 		if (file_exists("../src/" . self::$BoundleName . "/controllers/" . self::$ControllerName . ".php")) {
@@ -60,6 +62,11 @@ class Route
 
 			Route::$Error[] = "Class " . Route::$ControllerName . " does not exist"; // Класс не найден
 
+		}
+		
+		// Model
+		if (file_exists("../src/" . self::$BoundleName . "/models/" . self::$Model . ".php")) {
+			require_once "../src/" . self::$BoundleName . "/models/" . self::$Model . ".php";
 		}
 		
 

@@ -97,28 +97,28 @@ class PQ {
 		$pq = phpQuery::newDocument( $html );
 
 
-		foreach ($pq->find("tbody tr") as $value) {
+		foreach ($pq->find("tbody tr") as $key => $value) {
 			$tr = pq($value);
 			// doo
 			$doo = $tr->find("td:nth-child(1)");
-			$children['doo'] = $doo->attr("class");
+			$children[$key]['doo'] = $doo->attr("class");
 			// № заявления
-			$children['applicationNumber'] = $tr->find("td:nth-child(2)")->text();
+			$children[$key]['applicationNumber'] = $tr->find("td:nth-child(2)")->text();
 			// Статус заявления
-			$children['statusOfApplication'] = $tr->find("td:nth-child(3)")->text();
+			$children[$key]['statusOfApplication'] = $tr->find("td:nth-child(3)")->text();
 			// Тип льготы
-			$children['facilities'] = $tr->find("td:nth-child(4)")->text();
+			$children[$key]['facilities'] = $tr->find("td:nth-child(4)")->text();
 			// Дата рождения
-			$children['dateOfBirth'] = $tr->find("td:nth-child(5)")->text();
+			$children[$key]['dateOfBirth'] = $tr->find("td:nth-child(5)")->text();
 			// Дата регистрации
-			$children['dateOfRegistration'] = $tr->find("td:nth-child(6)")->text();
+			$children[$key]['dateOfRegistration'] = $tr->find("td:nth-child(6)")->text();
 
-			return $children;
+			
 
 		}
 		
 
-
+			return $children;
 		
 
 		

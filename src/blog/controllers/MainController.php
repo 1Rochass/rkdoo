@@ -13,9 +13,14 @@ class MainController extends Controller
 		$pq = new PQ();
 		$pqResponse = $pq->pQParseChildren($curlResponse);
 
+		// Model
+		$model = new Model_MainController();
+		$model->setData($pqResponse);
+		// $data = $model->getData();
+
 		// View
 		$view = new View();
-		$view->generate($BoundleName, "index.php", $pqResponse);
+		$view->generate($BoundleName, "index.php", $data);
 
 		
 		
