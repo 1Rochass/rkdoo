@@ -64,10 +64,10 @@ class Route
 
 		}
 		
-		// Model
-		if (file_exists("../src/" . self::$BoundleName . "/models/" . self::$Model . ".php")) {
-			require_once "../src/" . self::$BoundleName . "/models/" . self::$Model . ".php";
-		}
+		// // Model
+		// if (file_exists(__DIR__ . "../src/" . self::$BoundleName . "/models/" . self::$Model . ".php")) {
+		// 	require_once __DIR__ . "../src/" . self::$BoundleName . "/models/" . self::$Model . ".php";
+		// }
 		
 
 		// Запускаем вывод ошибок

@@ -99,13 +99,13 @@ class PQ {
 
 		foreach ($pq->find("tbody tr") as $key => $value) {
 			$tr = pq($value);
-			// doo
+			// Очередь
 			$doo = $tr->find("td:nth-child(1)");
-			$children[$key]['doo'] = $doo->attr("class");
+			$children[$key]['queue '] = $doo->attr("class");
 			// № заявления
 			$children[$key]['applicationNumber'] = $tr->find("td:nth-child(2)")->text();
 			// Статус заявления
-			$children[$key]['statusOfApplication'] = $tr->find("td:nth-child(3)")->text();
+			$children[$key]['applicationStatus'] = $tr->find("td:nth-child(3)")->text();
 			// Тип льготы
 			$children[$key]['facilities'] = $tr->find("td:nth-child(4)")->text();
 			// Дата рождения
