@@ -16,11 +16,12 @@ class MainController extends Controller
 		// Model
 		$model = new Model_MainController();
 		$model->setData($pqResponse);
-		// $data = $model->getData();
+		$group3_4 = $model->getData();
+		$grafic = $model->grafic();
 
 		// View
 		$view = new View();
-		$view->generate($BoundleName, "index.php", $data);
+		$view->generate($BoundleName, "index.php", $data = array('group3_4'=>$group3_4, 'grafic'=>$grafic));
 
 		
 		
