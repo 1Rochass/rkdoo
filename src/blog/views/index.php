@@ -62,28 +62,87 @@
         </div><!-- /.col-md-8 col-md-offset-2 -->
     </div><!-- /.row -->
 </div><!-- /.container -->
-<?php 
-    // Show children from 3_4 group
-    foreach ($data['group3_4'] as $key => $value) {
-       
-            foreach ($value as $key => $val) {
-                // Highlight our child
-                $end = end($data['grafic']); // Last record in db
-                if ($key+1 == $end['numberInQueue']) {
-                    echo $key+1 . " ::: "; // + 1 because people must count from 1 and not from 0
-                    echo "<b>" . $val['dateOfRegistration'] . " ::: " . $val['dateOfBirth']. "</b><br>";
-                }
 
-                echo $key+1 . " ::: ";
-                echo $val['dateOfRegistration'] . " ::: " . $val['dateOfBirth']. "<br>";
-                
-            }
-     
-    }
+<br><br><br> <!-- Отступ -->
+<div id="table">
+    <div id="alert" class="alert alert-warning" role="alert">
+      Таблица группы 3-4 года
+    </div>
+    <?php 
+        // Show children from 3_4 group
+        foreach ($data['group3_4'] as $key => $value) {
+
+                echo "<table id='group3_4' class='table'>"; // Table
+                echo "<thead>
+                    <tr>
+                      <th scope='col'>№</th>
+                      <th scope='col'>dateOfRecord</th>
+                      <th scope='col'>queue</th>
+                      <th scope='col'>applicationNumber</th>
+                      <th scope='col'>applicationStatus</th>
+                      <th scope='col'>facilities</th>
+                      <th scope='col'>dateOfBirth</th>
+                      <th scope='col'>dateOfRegistration</th>
+                    </tr>
+                  </thead>";
+
+                foreach ($value as $key => $val) {      
+                    echo "<tr>"; // Table
+
+                    // Highlight our child
+                    $end = end($data['grafic']); // Last record in db
+                    if ($key+1 == $end['numberInQueue']) {
+                        $key += 1; // Because "<td><b>" . $key+1 != numeric
+                        echo "<td><b>" . $key . "</b></td>"; // + 1 because people must count from 1 and not from 0
+                        echo "<td><b>" . $val['dateOfRecord'] . "</b></td>";
+                        echo "<td><b>" . $val['queue']. "</b></td>";
+                        echo "<td><b>" . $val['applicationNumber'] . "</b></td>";
+                        echo "<td><b>" . $val['applicationStatus']. "</b></td>";
+                        echo "<td><b>" . $val['facilities'] . "</b></td>";
+                        echo "<td><b>" . $val['dateOfBirth']. "</b></td>";
+                        echo "<td><b>" . $val['dateOfRegistration'] . "</b></td>";
+                    }
+                    else {
+                         $key += 1; // Because "<td><b>" . $key+1 != numeric
+                        echo "<td>" . $key . "</td>";
+                        echo "<td>" . $val['dateOfRecord'] . "</td>"; 
+                        echo "<td>" . $val['queue']. "</td>";
+                        echo "<td>" . $val['applicationNumber'] . "</td>"; 
+                        echo "<td>" . $val['applicationStatus']. "</td>";
+                        echo "<td>" . $val['facilities'] . "</td>"; 
+                        echo "<td>" . $val['dateOfBirth']. "</td>";
+                        echo "<td>" . $val['dateOfRegistration'] . "</td>"; 
+                    }
+
+                   
+
+                    echo "<tr>"; // Table
+                }
+                echo "</table>"; // Table
+
+        }
+    ?>
+</div>
+<?
     // Get last record
     $end = end($data['grafic']);
     echo "Number in queue: " . $end['numberInQueue'];
 
+    // Get all children
+    echo "<br>All children: " . count($data['allChildren']);
+
  ?>
+
+
+ <!-- JS -->
+ <script>
+    $(document).ready(function(){
+        $("#group3_4").slideUp();
+
+        $(".alert").click(function(){
+             $("#group3_4").slideToggle("slow");
+        });
+    });
+ </script>
 </body>
 </html>

@@ -36,13 +36,13 @@ class Model_MainController extends Model
 			// $Fields[] = "dateOfRegistration";
 
 			// Values
-			$values[':dateOfRecord'] = $dateOfRecord;
-			$values[':queue'] = $queue;
-			$values[':applicationNumber'] = $applicationNumber;
-			$values[':applicationStatus'] = $applicationStatus;
-			$values[':facilities'] = $facilities;
-			$values[':dateOfBirth'] = $dateOfBirth;
-			$values[':dateOfRegistration'] = $dateOfRegistration;
+			$values['dateOfRecord'] = $this->dateOfRecord;
+			$values['queue'] = $queue;
+			$values['applicationNumber'] = $applicationNumber;
+			$values['applicationStatus'] = $applicationStatus;
+			$values['facilities'] = $facilities;
+			$values['dateOfBirth'] = $dateOfBirth;
+			$values['dateOfRegistration'] = $dateOfRegistration;
 
 
 			
@@ -52,8 +52,7 @@ class Model_MainController extends Model
 			$stm->execute(array(':applicationNumber' => $applicationNumber));
 			$result = $stm->fetchObject();
 
-			// var_dump($result);
-			// exit();
+			
 
 			if ($result != false) 
 			{
@@ -63,7 +62,17 @@ class Model_MainController extends Model
 			{
 			      // Insert
 				$stm = $this->pdo->prepare("INSERT INTO children (dateOfRecord, queue, applicationNumber, applicationStatus, facilities, dateOfBirth, dateOfRegistration) VALUES (:dateOfRecord, :queue, :applicationNumber, :applicationStatus, :facilities, :dateOfBirth, :dateOfRegistration)");
-				$stm->execute($values);
+				$stm->execute(array(
+					':dateOfRecord'=>$values['dateOfRecord'],
+					':queue'=>$values['queue'],
+					':applicationNumber'=>$values['applicationNumber'],
+					':applicationStatus'=>$values['applicationStatus'],
+					':facilities'=>$values['facilities'],
+					':dateOfBirth'=>$values['dateOfBirth'],
+					':dateOfRegistration'=>$values['dateOfRegistration'],
+					));
+
+				
 			}
 			
 
@@ -91,7 +100,7 @@ class Model_MainController extends Model
 	// Grafic 
 	public function grafic() {
 		// Count of children
-		$grafic['countOfChildren'] =  count($this->childrenGroups['3_4']);
+		$grafic['countOfChildren'] =  count($this->childrenGroups['3_4']);	
 		// Number in queue
 		$grafic['numberInQueue'];
 		// date
@@ -135,5 +144,13 @@ class Model_MainController extends Model
 		// var_dump($this->childrenGroups['3_4']);
 		// echo "<pre>";
 		// exit();
+	}
+
+
+	// Count all children
+	public function getAllChildren(){
+		$stm = $this->pdo->prepare("SELECT * FROM children");
+		$stm->execute();
+		return $allChildren = $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 }

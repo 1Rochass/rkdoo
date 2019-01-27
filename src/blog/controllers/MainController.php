@@ -7,21 +7,25 @@ class MainController extends Controller
 
 		// Curl
 		$curl = new Curl();
-		$curlResponse = $curl->curlParse(); 	
+		$curlResponse = $curl->curlParse(); 
+
 
 		// Pq
 		$pq = new PQ();
 		$pqResponse = $pq->pQParseChildren($curlResponse);
+
+		
 
 		// Model
 		$model = new Model_MainController();
 		$model->setData($pqResponse);
 		$group3_4 = $model->getData();
 		$grafic = $model->grafic();
+		$allChildren = $model->getAllChildren();
 
 		// View
 		$view = new View();
-		$view->generate($BoundleName, "index.php", $data = array('group3_4'=>$group3_4, 'grafic'=>$grafic));
+		$view->generate($BoundleName, "index.php", $data = array('group3_4'=>$group3_4, 'grafic'=>$grafic, 'allChildren'=>$allChildren));
 
 		
 		

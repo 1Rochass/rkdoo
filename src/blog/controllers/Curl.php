@@ -17,7 +17,7 @@ class Curl {
 
 	// Curl parse
 	public function curlParse( )
-	{
+	{						
 		$ch = curl_init( "https://rkdoo.ru/client/home/kindergarten-queue?scope=578" );
 
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true ); // Сейвит результат в переменную
