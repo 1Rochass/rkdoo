@@ -83,7 +83,7 @@ class Model_MainController extends Model
 	public function getData()
 	{
 		// Prepare for anti sqlinserting???
-		$stm = $this->pdo->prepare("SELECT * FROM children WHERE dateOfBirth BETWEEN :startDate and :endDate");
+		$stm = $this->pdo->prepare("SELECT * FROM children WHERE dateOfBirth BETWEEN :startDate and :endDate ORDER BY dateOfRegistration");
 
 		// Make dates for group 3-4 yars old
 		$threeYarsLater = date("Y-m-d", mktime(0, 0, 0, date('m')-36, date('d'), date('y')));
@@ -95,6 +95,11 @@ class Model_MainController extends Model
 		// Get assoc with data
 		 $this->childrenGroups['3_4'] =  $stm->fetchAll(PDO::FETCH_ASSOC);
 		 return $this->childrenGroups;
+
+		//  echo "<pre>";
+		// var_dump($this->childrenGroups['3_4']);
+		// echo "<pre>";
+		// exit();
 	}
 		
 	// Grafic 
